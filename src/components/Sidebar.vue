@@ -2,7 +2,11 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <img class="avatar" :src="avatar" alt="Roykesydon" />
-            <h2 class="sidebar-title glitch" data-text="Roykesydon">Roykesydon</h2>
+            <span class="glitch-wrapper">
+                <span class="sidebar-title glitch-bg" data-text="Roykesydon"></span>
+                <span class="sidebar-title glitch-text">Roykesydon</span>
+            </span>
+            <!-- <h2 class="sidebar-title glitch" data-text="Roykesydon">Roykesydon</h2> -->
             <div class="neon-glow"></div>
         </div>
         <ul class="menu-list">
@@ -66,7 +70,8 @@ const handleMenuClick = (key) => {
     position: sticky;
     top: 0;
     width: 250px;
-    color: var(--text-color); /* 使用主題文字顏色 */
+    color: var(--text-color);
+    /* 使用主題文字顏色 */
     height: 100vh;
     overflow-y: auto;
     transition: width 0.3s ease, box-shadow 0.3s ease;
@@ -86,18 +91,21 @@ const handleMenuClick = (key) => {
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 60%;
+    /* height: 90%; */
     border-radius: 50%;
     margin-bottom: 10px;
-    border: 2px solid var(--accent-color); /* 使用主題 accent 顏色 */
-    box-shadow: 0 0 15px var(--accent-color), 0 0 30px color-mix(in srgb, var(--accent-color) 50%, transparent); /* 適配透明度 */
+    border: 2px solid var(--accent-color);
+    /* 使用主題 accent 顏色 */
+    box-shadow: 0 0 15px var(--accent-color), 0 0 30px color-mix(in srgb, var(--accent-color) 50%, transparent);
+    /* 適配透明度 */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .avatar:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 20px var(--secondary-accent), 0 0 40px color-mix(in srgb, var(--secondary-accent) 70%, transparent); /* 使用 secondary accent */
+    box-shadow: 0 0 20px var(--secondary-accent), 0 0 40px color-mix(in srgb, var(--secondary-accent) 70%, transparent);
+    /* 使用 secondary accent */
 }
 
 .sidebar-title {
@@ -133,7 +141,8 @@ const handleMenuClick = (key) => {
     padding: 15px 20px;
     cursor: pointer;
     position: relative;
-    background: color-mix(in srgb, var(--accent-color) 5%, transparent); /* 背景透明度 */
+    background: color-mix(in srgb, var(--accent-color) 5%, transparent);
+    /* 背景透明度 */
     margin: 5px 10px;
     border-radius: 8px;
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
@@ -141,7 +150,8 @@ const handleMenuClick = (key) => {
 }
 
 .menu-item:hover {
-    background: color-mix(in srgb, var(--secondary-accent) 15%, transparent); /* hover 使用 secondary accent */
+    background: color-mix(in srgb, var(--secondary-accent) 15%, transparent);
+    /* hover 使用 secondary accent */
     transform: translateX(5px);
     box-shadow: 0 0 15px color-mix(in srgb, var(--secondary-accent) 30%, transparent);
 }
@@ -162,19 +172,22 @@ const handleMenuClick = (key) => {
 }
 
 .menu-icon {
-    color: var(--accent-color); /* 圖標使用 accent 顏色 */
+    color: var(--accent-color);
+    /* 圖標使用 accent 顏色 */
     filter: drop-shadow(0 0 4px var(--accent-color));
     transition: transform 0.3s ease;
 }
 
 .menu-item:hover .menu-icon {
     transform: scale(1.2);
-    color: var(--secondary-accent); /* hover 時圖標變色 */
+    color: var(--secondary-accent);
+    /* hover 時圖標變色 */
 }
 
 .menu-label {
-    font-family: 'Roboto Mono', monospace;
+    /* font-family: 'Roboto Mono', monospace; */
     font-size: 1rem;
+    font-weight: 700;
     letter-spacing: 1px;
     color: var(--text-color);
     text-shadow: 0 0 4px color-mix(in srgb, var(--accent-color) 50%, transparent);
@@ -198,6 +211,7 @@ const handleMenuClick = (key) => {
     0% {
         opacity: 0.4;
     }
+
     100% {
         opacity: 0.2;
     }

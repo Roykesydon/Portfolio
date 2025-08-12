@@ -1,89 +1,79 @@
-$update-steps: 20;
-
-@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-
-.glitch {
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 100;
-    letter-spacing: 2px;
-    position: relative;
-    height: 0.2em;
-    font-size: 1.5em;
-    color: white;
-    opacity: 1;
-    animation: shadow 5s linear 0.1s infinite forwards;
+.glitch-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.glitch-description {
-    position: relative;
-    height: 1.2em;
-    font-size: 1.0em;
-    color: white;
-    opacity: 1;
-    animation: shadow 5s linear 0.1s infinite forwards;
+.glitch-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: transparent;
 }
 
-@keyframes noise-2 {
-    @for $i from 0 through $update-steps {
-        #{percentage($i*(1/$update-steps))} {
-            $pos: random(100) / 100;
-            $end: min($pos + random(10) / 100, 1) * 100%;
-            clip-path: polygon(0% $pos * 100%, 900% $pos * 100%, 900% $end, 0% $end);
-        }
-    }
+.glitch-bg::before,
+.glitch-bg::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: transparent;
+  opacity: 0.6;
 }
 
-.glitch:after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0.05em;
-    text-shadow: -1px 0 red;
-    top: 0;
-    color: white;
-    background: rgba(20, 20, 20,0);
-    animation: noise-2 3s infinite linear forwards;
+.glitch-bg::before {
+  color: red;
+  animation: glitch-top 2s infinite linear alternate-reverse;
 }
 
-.glitch-description:after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0.02em;
-    text-shadow: -1px 0 red;
-    top: 0;
-    color: white;
-    background: rgba(20, 20, 20,0);
-    animation: noise-2 3s infinite linear forwards;
+.glitch-bg::after {
+  color: cyan;
+  animation: glitch-bottom 2s infinite linear alternate-reverse;
 }
 
-@keyframes noise {
-    @for $i from 0 through $update-steps {
-        #{percentage($i*(1/$update-steps))} {
-            $pos: random(100) / 100;
-            $end: min($pos + random(10) / 100, 1) * 100%;
-            clip-path: polygon(0% $pos * 100%, 900% $pos * 100%, 900% $end, 0% $end);
-        }
-    }
+.glitch-text {
+  position: relative;
+  color: white; /* 主字顏色 */
+  font-weight: bold;
+  z-index: 2; /* 確保白字在最上層 */
 }
 
-.glitch:before {
-    content: attr(data-text);
-    position: absolute;
-    left: -0.05em;
-    text-align: center;
-    top: 0;
-    color: white;
-    background: rgba(20, 20, 20,0);
-    animation: noise 5s infinite linear alternate-reverse;
+/* 動畫同原本 */
+@keyframes glitch-top {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-2px, -2px);
+  }
+  40% {
+    transform: translate(-1px, 1px);
+  }
+  60% {
+    transform: translate(-1px, 0);
+  }
+  80% {
+    transform: translate(-2px, 2px);
+  }
 }
 
-.glitch-description:before {
-    content: attr(data-text);
-    position: absolute;
-    left: -0.02em;
-    text-align: center;
-    top: 0;
-    color: white;
-    background: rgba(20, 20, 20,0);
-    animation: noise 5s infinite linear alternate-reverse;
+@keyframes glitch-bottom {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(2px, 1px);
+  }
+  40% {
+    transform: translate(1px, -1px);
+  }
+  60% {
+    transform: translate(1px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
 }

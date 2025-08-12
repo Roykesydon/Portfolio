@@ -1,6 +1,6 @@
 <template>
   <div class="content-backdrop"></div>
-  <NConfigProvider :theme="darkTheme">
+  <NConfigProvider :theme="darkTheme" :theme-overrides="myThemeOverrides">
     <div class="outer-container">
       <div class="app-container">
         <Sidebar /> <!-- 側邊欄組件 -->
@@ -16,6 +16,16 @@
 import { NConfigProvider } from 'naive-ui'
 import { darkTheme } from 'naive-ui'
 import Sidebar from './components/Sidebar.vue'
+
+const myThemeOverrides = {
+  common: {
+    primaryColor: '#51b1ff',          // 自訂主色
+    primaryColorHover: '#3a8ee6',      // 主色懸停
+    primaryColorPressed: '#2a6bbf',     // 主色按下
+    primaryColorSuppl: '#1a4a99',       // 主色輔助
+  }
+}
+
 </script>
 
 <style>
