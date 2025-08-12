@@ -77,6 +77,10 @@
                 </n-timeline-item>
             </n-timeline>
         </n-card>
+
+        <n-card title="Yearly Timeline" hoverable class="section-card">
+            <TimelineDialog />
+        </n-card>
     </div>
 </template>
 
@@ -85,6 +89,7 @@ import { computed } from 'vue'
 import { NCard, NList, NListItem, NDescriptions, NDescriptionsItem, NTag, NAvatar, NTabs, NTabPane, NTimeline, NTimelineItem, NCollapse, NCollapseItem, NIcon } from 'naive-ui'
 import { Trophy } from '@vicons/ionicons5'
 import { introductionData } from '../data/introduction'
+import TimelineDialog from '../components/TimelineDialog.vue'
 
 // 安全解析 ranking（兼容多種字串格式）
 const parseRankingFromName = (name = '') => {

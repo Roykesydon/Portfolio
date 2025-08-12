@@ -46,14 +46,14 @@ body {
 }
 
 .content-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(20, 20, 40, 0.5);
-    border-radius: 12px;
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 40, 0.5);
+  border-radius: 12px;
+  z-index: -1;
 }
 
 .outer-container {
@@ -87,4 +87,29 @@ body {
   background-color: #13141bd3 !important;
   border-radius: 16px;
 }
+
+/* scroll bar*/
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 20px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1c1f2c;
+}
+
+::-webkit-scrollbar-thumb {
+  /* background-color: #d6dee1; */
+  background: linear-gradient(-45deg, #23a6d5, #23d5ab);
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+
+/**/
 </style>
