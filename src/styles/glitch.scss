@@ -1,0 +1,89 @@
+$update-steps: 20;
+
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+.glitch {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 100;
+    letter-spacing: 2px;
+    position: relative;
+    height: 0.2em;
+    font-size: 1.5em;
+    color: white;
+    opacity: 1;
+    animation: shadow 5s linear 0.1s infinite forwards;
+}
+
+.glitch-description {
+    position: relative;
+    height: 1.2em;
+    font-size: 1.0em;
+    color: white;
+    opacity: 1;
+    animation: shadow 5s linear 0.1s infinite forwards;
+}
+
+@keyframes noise-2 {
+    @for $i from 0 through $update-steps {
+        #{percentage($i*(1/$update-steps))} {
+            $pos: random(100) / 100;
+            $end: min($pos + random(10) / 100, 1) * 100%;
+            clip-path: polygon(0% $pos * 100%, 900% $pos * 100%, 900% $end, 0% $end);
+        }
+    }
+}
+
+.glitch:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0.05em;
+    text-shadow: -1px 0 red;
+    top: 0;
+    color: white;
+    background: rgba(20, 20, 20,0);
+    animation: noise-2 3s infinite linear forwards;
+}
+
+.glitch-description:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0.02em;
+    text-shadow: -1px 0 red;
+    top: 0;
+    color: white;
+    background: rgba(20, 20, 20,0);
+    animation: noise-2 3s infinite linear forwards;
+}
+
+@keyframes noise {
+    @for $i from 0 through $update-steps {
+        #{percentage($i*(1/$update-steps))} {
+            $pos: random(100) / 100;
+            $end: min($pos + random(10) / 100, 1) * 100%;
+            clip-path: polygon(0% $pos * 100%, 900% $pos * 100%, 900% $end, 0% $end);
+        }
+    }
+}
+
+.glitch:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -0.05em;
+    text-align: center;
+    top: 0;
+    color: white;
+    background: rgba(20, 20, 20,0);
+    animation: noise 5s infinite linear alternate-reverse;
+}
+
+.glitch-description:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -0.02em;
+    text-align: center;
+    top: 0;
+    color: white;
+    background: rgba(20, 20, 20,0);
+    animation: noise 5s infinite linear alternate-reverse;
+}

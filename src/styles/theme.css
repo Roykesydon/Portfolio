@@ -1,0 +1,49 @@
+:root {
+  --background-color: #1e1e1e; /* 暗色背景 */
+  --text-color: #e0e0e0; /* 淺灰文字 */
+  --accent-color: #51b1ff; /* 藍色亮光 */
+  --accent-dark-color: #304657; /* 深藍色亮光 */
+  --secondary-accent: #e86ffd; /* 粉紫色亮光 */
+  --card-bg: #2a2a2a; /* 卡片背景 */
+  --border-color: #424242; /* 邊框 */
+}
+
+body {
+  margin: 0;
+  /* background-color: var(--background-color); */
+
+  background-image: url("/src/assets/background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+
+  color: var(--text-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+} */
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--secondary-accent);
+}
+
+/* Naive UI 暗色主題調整（Naive UI 內建支援 dark theme） */
+.n-dark-theme {
+  --n-color: var(--background-color);
+  --n-text-color: var(--text-color);
+}
