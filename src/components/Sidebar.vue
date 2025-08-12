@@ -9,6 +9,18 @@
             <!-- <h2 class="sidebar-title glitch" data-text="Roykesydon">Roykesydon</h2> -->
             <div class="neon-glow"></div>
         </div>
+        <div class="social-icons">
+            <button class="social-btn" @click="openLink('https://x.com/Roykesydon')" aria-label="X (Twitter)">
+                <font-awesome-icon :icon="['fab', 'twitter']" />
+            </button>
+            <button class="social-btn" @click="openLink('https://www.linkedin.com/in/chia-chang-tsou-79514b28a/')"
+                aria-label="LinkedIn">
+                <font-awesome-icon :icon="['fab', 'linkedin']" />
+            </button>
+            <button class="social-btn" @click="openLink('https://www.pixiv.net/users/18855729')" aria-label="Pixiv">
+                <font-awesome-icon :icon="['fab', 'pixiv']" />
+            </button>
+        </div>
         <ul class="menu-list">
             <li v-for="option in menuOptions" :key="option.key" class="menu-item"
                 :class="{ active: currentRoute === option.key }" @click="handleMenuClick(option.key)">
@@ -26,10 +38,14 @@
 import { computed, h } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faCode, faPaintBrush } from '@fortawesome/free-solid-svg-icons'
+import { faTwitter, faLinkedin, faPixiv } from '@fortawesome/free-brands-svg-icons'
 
 import '../styles/glitch.scss'
 import avatar from '../assets/avatar.jpg'
+
+library.add(faUser, faCode, faPaintBrush, faTwitter, faLinkedin, faPixiv)
 
 const router = useRouter()
 const route = useRoute()
@@ -63,6 +79,10 @@ const handleMenuClick = (key) => {
     else if (key === 'illustrations') router.push('/illustrations')
     else router.push(`/${key}`)
 }
+
+const openLink = (url) => {
+    window.open(url, '_blank', 'noopener')
+}
 </script>
 
 <style scoped>
@@ -85,7 +105,7 @@ const handleMenuClick = (key) => {
 
 .sidebar-header {
     text-align: center;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
     position: relative;
     z-index: 2;
 }
@@ -215,5 +235,34 @@ const handleMenuClick = (key) => {
     100% {
         opacity: 0.2;
     }
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.social-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease,
+        filter 0.3s ease;
+    filter: drop-shadow(0 0 4px var(--accent-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: 6px; */
+    border-radius: 50%;
+}
+
+.social-btn:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 10px var(--accent-color))
 }
 </style>
