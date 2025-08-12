@@ -1,7 +1,7 @@
 <template>
     <nav class="sidebar">
         <div class="sidebar-header">
-            <img class="avatar" src="/src/assets/avatar.jpg" alt="Roykesydon" />
+            <img class="avatar" :src="avatar" alt="Roykesydon" />
             <h2 class="sidebar-title glitch" data-text="Roykesydon">Roykesydon</h2>
             <div class="neon-glow"></div>
         </div>
@@ -24,7 +24,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUser, faCode, faPaintBrush } from '@fortawesome/free-solid-svg-icons'
 
-import '/src/styles/glitch.scss'
+import '../styles/glitch.scss'
+import avatar from '../assets/avatar.jpg'
 
 const router = useRouter()
 const route = useRoute()

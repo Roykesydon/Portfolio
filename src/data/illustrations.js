@@ -1,4 +1,3 @@
-// /src/data/illustrations.js
 export const illustrationsData = [
     {
         title: "遐蝶",

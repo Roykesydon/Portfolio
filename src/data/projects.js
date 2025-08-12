@@ -1,3 +1,9 @@
+import StellarTrack1 from '../assets/projects/StellarTrack-1.jpg'
+import StellarTrack2 from '../assets/projects/StellarTrack-2.jpg'
+import WAF1 from '../assets/projects/WAF-1.jpg'
+import WAF2 from '../assets/projects/WAF-2.jpg'
+
+
 export const sideProjectsData = [
   {
     title: "RoyKesyShop",
@@ -23,8 +29,8 @@ export const sideProjectsData = [
     description: "This is a web frontend project without a backend, made using Three.js and Bootstrap, displaying the changing paths of the sun’s rotation in different latitudes and regions.",
     link: "https://github.com/Roykesydon/StellarTrack",
     images: [
-      "/src/assets/projects/StellarTrack-1.jpg",
-      "/src/assets/projects/StellarTrack-2.jpg"
+      StellarTrack1,
+      StellarTrack2
     ]
   },
     {
@@ -32,8 +38,8 @@ export const sideProjectsData = [
     description: "This is a platform that allows people to find others to crowdfund with. The frontend is mainly composed of JavaFX, while the backend uses Flask as the framework. Users can post to find others to crowdfund with, or join other people’s posts. Users can also send and receive chat messages in real time, with notifications appearing on their operating system.",
     link: "https://github.com/Roykesydon/WeAreFamily",
     images: [
-      "/src/assets/projects/WAF-1.jpg",
-      "/src/assets/projects/WAF-2.jpg"
+      WAF1,
+      WAF2
     ]
   },
 ]

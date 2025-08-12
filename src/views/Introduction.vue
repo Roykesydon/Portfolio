@@ -2,10 +2,6 @@
     <div class="introduction">
         <!-- 個人簡介 -->
         <n-card class="profile-card" hoverable>
-            <!-- <div class="profile-header">
-                <n-avatar size="large" src="/src/assets/avatar.jpg" />
-                <h2>個人簡介</h2>
-            </div> -->
             <div class="introduction-content">
                 <p>{{ data.about.introduction }}</p>
             </div>
