@@ -1,13 +1,13 @@
 <template>
     <div class="home">
         <n-card class="profile-card" hoverable>
-            <div class="introduction-content terminal-screen" @click="toggleInput">
+            <div class="introduction-content terminal-screen">
                 <div v-for="(line, index) in displayedLines" :key="index" class="terminal-line">
                     {{ line }}
                 </div>
                 <span class="cursor" v-if="isTyping">▍</span>
 
-                <div v-if="showInput" class="input-line" >
+                <div v-if="showInput" class="input-line">
                     <span class="prompt">$</span>
                     <input v-model="userInput" @keyup.enter="handleCommand" class="terminal-input"
                         placeholder="Type command..." autofocus />
@@ -65,6 +65,28 @@ const typeIntroduction = () => {
     type()
 }
 
+const typeLine = (text, callback) => {
+    let charIndex = 0
+    const typingSpeed = 10
+    displayedLines.value.push('') // 先占位一行
+    const currentLineIndex = displayedLines.value.length - 1
+    isTyping.value = true
+    showInput.value = false
+
+    const type = () => {
+        if (charIndex < text.length) {
+            displayedLines.value[currentLineIndex] += text[charIndex]
+            charIndex++
+            setTimeout(type, typingSpeed)
+        } else {
+            isTyping.value = false
+            showInput.value = true
+            if (callback) callback()
+        }
+    }
+    type()
+}
+
 // 模擬載入效果，載入結束後執行 callback
 const fakeLoading = (callback) => {
     displayedLines.value.push('Loading...')
@@ -81,45 +103,61 @@ const fakeLoading = (callback) => {
 const handleCommand = () => {
     const input = userInput.value.trim().toLowerCase()
 
+    // 立刻顯示使用者輸入
     displayedLines.value.push(`$ ${input}`)
+    // 立刻清空輸入框
+    userInput.value = ''
 
     if (input === 'help') {
-        commandOutput.value = [
+        const output = [
             'Available commands:',
-            '- steam_games: Show my favorite recent games',
+            '- games: Show my favorite recent games',
             '- info: Show my introduction',
             '- paintings: Show my paintings',
-            '- get_video: Open a special video'
+            '- video: Open a special video',
+            '- time: Show current time',
+            '- ask <your question>: Ask me anything'
         ].join('\n')
-        displayedLines.value.push(commandOutput.value)
-    } else if (input === 'steam_games') {
-        commandOutput.value = [
+        typeLine(output)
+
+    } else if (input === 'games') {
+        const output = [
             'Here are some of my recent favorite games:',
             '- PEAK: 爬山遊戲，單人也好玩',
             '- 雨世界 (Rain World): 近期最愛的遊戲，世界觀也很有意思'
         ].join('\n')
-        displayedLines.value.push(commandOutput.value)
+        typeLine(output)
+
     } else if (input === 'info') {
-        // 假裝加載後跳轉 /introduction
         fakeLoading(() => {
             router.push('/introduction')
         })
+
     } else if (input === 'paintings') {
-        // 假裝加載後跳轉 /illustrations
         fakeLoading(() => {
             router.push('/illustrations')
         })
-    } else if (input === 'get_video') {
+
+    } else if (input === 'video') {
         const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
         window.open(url, '_blank')
-        commandOutput.value = 'Opening special video...'
-        displayedLines.value.push(commandOutput.value)
-    } else {
-        commandOutput.value = 'Command not found. Try "help".'
-        displayedLines.value.push(commandOutput.value)
-    }
+        typeLine('Opening special video...')
 
-    userInput.value = ''
+    } else if (input === "time") {
+        const now = new Date();
+        const formatted = now.toLocaleString();
+        typeLine(`Current time: ${formatted}`);
+    } else if (input.startsWith("ask ")) {
+        const query = input.slice(4).trim();
+        if (query) {
+            window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank");
+            typeLine(`Searching for: ${query}`);
+        } else {
+            typeLine("Usage: ask <question>");
+        }
+    } else {
+        typeLine('Command not found. Try "help".')
+    }
 }
 
 const toggleInput = async () => {
