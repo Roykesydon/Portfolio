@@ -23,7 +23,7 @@
                                 </n-collapse>
                             </div>
                             <div v-if="yearData.experience && yearData.experience.length > 0" class="category-section">
-                                <h3>Experience</h3>
+                                <h3>Role</h3>
                                 <n-collapse>
                                     <n-collapse-item v-for="(event, idx) in yearData.experience" :key="idx"
                                         :title="event.title">

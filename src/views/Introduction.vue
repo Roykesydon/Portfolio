@@ -1,11 +1,18 @@
 <template>
     <div class="introduction">
         <!-- 個人簡介 -->
-        <n-card class="profile-card" hoverable>
-            <div class="introduction-content">
-                <p>{{ data.about.introduction }}</p>
+        <!-- <n-card class="profile-card" hoverable>
+            <div class="introduction-content terminal-screen" @click="toggleInput">
+                <div v-for="(line, index) in displayedLines" :key="index" class="terminal-line">
+                    {{ line }}
+                </div>
+                <span class="cursor" v-if="isTyping">█</span>
+
+                <input v-if="showInput" v-model="userInput" @keyup.enter="handleCommand" class="terminal-input"
+                    placeholder="Type command..." autofocus />
+                <div v-if="commandOutput" class="terminal-output">{{ commandOutput }}</div>
             </div>
-        </n-card>
+        </n-card> -->
 
         <!-- 教育背景 -->
         <n-card title="Education" hoverable class="section-card">
@@ -85,11 +92,72 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { NCard, NList, NListItem, NDescriptions, NDescriptionsItem, NTag, NAvatar, NTabs, NTabPane, NTimeline, NTimelineItem, NCollapse, NCollapseItem, NIcon } from 'naive-ui'
 import { Trophy } from '@vicons/ionicons5'
 import { introductionData } from '../data/introduction'
 import TimelineDialog from '../components/TimelineDialog.vue'
+
+
+const displayedLines = ref([])
+const isTyping = ref(true)
+const showInput = ref(false)
+const userInput = ref('')
+const commandOutput = ref('')
+
+// 打字動畫
+const typeIntroduction = () => {
+    const lines = data.value.about.introduction
+    let lineIndex = 0
+    let charIndex = 0
+    const typingSpeed = 50 // 毫秒/字元
+
+    const type = () => {
+        if (lineIndex < lines.length) {
+            if (charIndex < lines[lineIndex].length) {
+                if (!displayedLines.value[lineIndex]) displayedLines.value[lineIndex] = ''
+                displayedLines.value[lineIndex] += lines[lineIndex][charIndex]
+                charIndex++
+                setTimeout(type, typingSpeed)
+            } else {
+                charIndex = 0
+                lineIndex++
+                displayedLines.value.push('') // 新行
+                setTimeout(type, typingSpeed * 2) // 行間延遲
+            }
+        } else {
+            isTyping.value = false
+        }
+    }
+    type()
+}
+
+// 彩蛋：處理命令
+const handleCommand = () => {
+    const input = userInput.value.trim().toLowerCase()
+    if (input === 'help') {
+        commandOutput.value = 'Available commands: steam (show favorite games), exit (close input)'
+    } else if (input === 'steam') {
+        commandOutput.value = 'Favorite Steam games: Civilization VI, Stellaris, Factorio. Easter egg unlocked! 🎉'
+    } else if (input === 'exit') {
+        showInput.value = false
+        commandOutput.value = ''
+    } else {
+        commandOutput.value = 'Command not found. Try "help".'
+    }
+    userInput.value = ''
+    displayedLines.value.push(`$ ${input}`)
+    displayedLines.value.push(commandOutput.value)
+}
+
+// 點擊螢幕顯示輸入框（彩蛋觸發）
+const toggleInput = () => {
+    showInput.value = !showInput.value
+}
+
+// onMounted(() => {
+//     typeIntroduction()
+// })
 
 // 安全解析 ranking（兼容多種字串格式）
 const parseRankingFromName = (name = '') => {
@@ -194,26 +262,69 @@ const workingExperienceTimeline = computed(() => {
 }
 
 .introduction-content {
-    /* 等寬終端機字體 */
+    font-family: 'Courier New', monospace;
+    /* 等寬字體 */
     font-size: 1.1rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+    color: #85d8ff;
+    /* 綠色 */
+    background: #000;
+    /* 黑底 */
     padding: 16px;
-    background: rgba(0, 0, 0, 0.85);
-    border-radius: 8px;
-    text-shadow: 0 0 5px var(--accent-color),
-        0 0 10px var(--accent-color),
-        0 0 20px var(--accent-color);
+    border-radius: 4px;
+    white-space: pre;
+    /* 保留空白 */
+    overflow: hidden;
+    height: 200px;
+    /* 固定高度，像終端機視窗 */
+    border: 1px solid #85d8ff;
+    box-shadow: 0 0 10px #85d8ff;
+    cursor: pointer;
+    /* 鼠標形狀提示可點擊 */
 
-    /* 模擬老 CRT 掃描線效果 */
+    /* CRT 螢幕掃描線效果 */
     background-image: repeating-linear-gradient(to bottom,
             rgba(255, 255, 255, 0.05) 0px,
             rgba(255, 255, 255, 0.05) 1px,
             transparent 2px,
             transparent 4px);
-
-    /* 模擬螢幕微小閃爍 */
     animation: crt-flicker 2s infinite steps(20), crt-glow 1.5s infinite alternate;
+}
+
+.terminal-line {
+    margin-bottom: 4px;
+}
+
+.cursor {
+    display: inline-block;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: inherit;
+    width: 100%;
+    outline: none;
+}
+
+.terminal-output {
+    color: #ffff00;
+    /* 黃色輸出區分 */
 }
 
 /* 輕微亮度閃爍 */

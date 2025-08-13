@@ -20,6 +20,9 @@
             <button class="social-btn" @click="openLink('https://www.pixiv.net/users/18855729')" aria-label="Pixiv">
                 <font-awesome-icon :icon="['fab', 'pixiv']" />
             </button>
+            <button class="social-btn" @click="openLink('https://github.com/Roykesydon')" aria-label="GitHub">
+                <font-awesome-icon :icon="['fab', 'github']" />
+            </button>
         </div>
         <ul class="menu-list">
             <li v-for="option in menuOptions" :key="option.key" class="menu-item"
@@ -40,17 +43,22 @@ import { useRouter, useRoute } from 'vue-router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faCode, faPaintBrush } from '@fortawesome/free-solid-svg-icons'
-import { faTwitter, faLinkedin, faPixiv } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter, faLinkedin, faPixiv, faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import '../styles/glitch.scss'
 import avatar from '../assets/avatar.jpg'
 
-library.add(faUser, faCode, faPaintBrush, faTwitter, faLinkedin, faPixiv)
+library.add(faUser, faCode, faPaintBrush, faTwitter, faLinkedin, faPixiv, faGithub)
 
 const router = useRouter()
 const route = useRoute()
 
 const menuOptions = [
+    {
+        label: 'Home',
+        key: 'home',
+        icon: () => h(FontAwesomeIcon, { icon: faUser })
+    },
     {
         label: 'Introduction',
         key: 'introduction',
@@ -69,12 +77,12 @@ const menuOptions = [
 ]
 
 const currentRoute = computed(() => {
-    if (route.path === '/') return 'introduction'
-    return route.path.slice(1)
+    return route.path === '/' ? 'home' : route.path.slice(1)
 })
 
 const handleMenuClick = (key) => {
-    if (key === 'introduction') router.push('/')
+    if (key === 'home') router.push('/')
+    else if (key === 'introduction') router.push('/introduction')
     else if (key === 'projects') router.push('/projects')
     else if (key === 'illustrations') router.push('/illustrations')
     else router.push(`/${key}`)
@@ -170,10 +178,10 @@ const openLink = (url) => {
 }
 
 .menu-item:hover {
-    background: color-mix(in srgb, var(--secondary-accent) 15%, transparent);
+    background: color-mix(in srgb, rgba(255, 255, 255, 0.8) 15%, transparent);
     /* hover 使用 secondary accent */
     transform: translateX(5px);
-    box-shadow: 0 0 15px color-mix(in srgb, var(--secondary-accent) 30%, transparent);
+    box-shadow: 0 0 15px color-mix(in srgb, rgba(255, 255, 255, 0.8) 30%, transparent);
 }
 
 .menu-item.active {
@@ -200,7 +208,7 @@ const openLink = (url) => {
 
 .menu-item:hover .menu-icon {
     transform: scale(1.2);
-    color: var(--secondary-accent);
+    color: rgba(255, 255, 255, 0.8);
     /* hover 時圖標變色 */
 }
 
@@ -219,7 +227,7 @@ const openLink = (url) => {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--secondary-accent) 30%, transparent), transparent);
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, rgba(255, 255, 255, 0.8) 30%, transparent), transparent);
     transition: left 0.5s ease;
 }
 

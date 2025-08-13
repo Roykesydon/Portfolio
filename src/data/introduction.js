@@ -1,7 +1,4 @@
 export const introductionData = {
-    about: {
-        introduction: "我愛寫程式、畫畫和玩電腦遊戲。愛玩 Steam 遊戲，單機策略遊戲為主。",
-    },
     education: [
         {
             degree: "MSc, Computer Science and Information Engineering",
@@ -82,7 +79,7 @@ export const introductionData = {
             duration: "2024"
         },
         {
-            job: "Linux Server Administrator",
+            job: "Linux Server Management",
             details: "Responsible for managing Linux servers equipped with public GPUs for the laboratory. Duties included creating and managing user accounts, addressing each user’s specific environment requirements, and utilizing Docker to set up containers. Ensured users could access their dedicated containers using their existing SSH private keys and install necessary libraries. Additionally, used LVM to dynamically expand disk space to accommodate the increasing storage demands as the number of laboratory members grew.",
             duration: "2023-2025"
         },
