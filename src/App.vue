@@ -1,5 +1,6 @@
 <template>
-  <div class="content-backdrop"></div>
+  <div class="content-backdrop" :class="{ active: eggState.rmrfActive }"></div>
+
   <NConfigProvider :theme="darkTheme" :theme-overrides="myThemeOverrides">
     <div class="outer-container">
       <div class="app-container">
@@ -13,8 +14,10 @@
 </template>
 
 <script setup>
+import { watchEffect } from 'vue'
 import { NConfigProvider } from 'naive-ui'
 import { darkTheme } from 'naive-ui'
+import { eggState } from './store/egg'
 import Sidebar from './components/Sidebar.vue'
 
 const myThemeOverrides = {
@@ -26,6 +29,12 @@ const myThemeOverrides = {
   }
 }
 
+watchEffect(() => {
+  if (eggState.rmrfActive) {
+    document.documentElement.style.setProperty('--background-color', '#0a0a0a')
+    document.documentElement.style.setProperty('--accent-color', '#ff0000')
+  }
+})
 </script>
 
 <style>
@@ -111,5 +120,45 @@ body {
   background-color: #a8bbbf;
 }
 
-/**/
+.content-backdrop.active {
+  background: rgba(0, 0, 0, 0.7);
+  /* 更暗 */
+  transition: background 0.5s ease;
+}
+
+/* 紅光閃爍效果 */
+.content-backdrop.active::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 70%);
+  animation: red-alert 5s infinite alternate; 
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes red-alert {
+  0% {
+    opacity: 0.1;
+  }
+
+  25% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+
+  75% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 0.25;
+  }
+}
 </style>

@@ -231,7 +231,9 @@ const timelineData = computed(() => {
     /* 限制高度 */
     overflow-y: auto;
     /* 滾動條 */
+    /* padding 除了上面都設 8px */
     padding: 8px;
+    padding-top: 0;
 }
 
 .popover-content::-webkit-scrollbar {

@@ -1,7 +1,7 @@
 <template>
     <nav class="sidebar">
         <div class="sidebar-header">
-            <img class="avatar" :src="avatar" alt="Roykesydon" />
+            <img class="avatar" :src="avatar" alt="Roykesydon" :class="{ 'avatar-broken': eggState.rmrfActive }" />
             <span class="glitch-wrapper">
                 <span class="sidebar-title glitch-bg" data-text="Roykesydon"></span>
                 <span class="sidebar-title glitch-text">Roykesydon</span>
@@ -44,6 +44,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faCode, faPaintBrush } from '@fortawesome/free-solid-svg-icons'
 import { faTwitter, faLinkedin, faPixiv, faGithub } from '@fortawesome/free-brands-svg-icons'
+import { eggState } from '../store/egg'
 
 import '../styles/glitch.scss'
 import avatar from '../assets/avatar.jpg'
@@ -272,5 +273,70 @@ const openLink = (url) => {
     color: var(--accent-color);
     transform: scale(1.2);
     filter: drop-shadow(0 0 10px var(--accent-color))
+}
+
+/* Avatar 壞掉效果 */
+.avatar-broken {
+    /* filter: brightness(1.0) contrast(0.5) saturate(0.8) hue-rotate(-20deg); */
+    animation: glitch-shake 3s infinite alternate-reverse,
+        glitch-color 5s infinite alternate;
+}
+
+/* 輕微扭曲水平移動 */
+@keyframes glitch-shake {
+    0% {
+        transform: translate(0, 0) skew(0deg, 0deg);
+    }
+
+    39% {
+        transform: translate(0, 0) skew(0deg, 0deg);
+    }
+
+    40% {
+        transform: translate(-3px, 4px) skew(5deg, 1deg);
+    }
+
+    41% {
+        transform: translate(0, 0) skew(0deg, 0deg);
+    }
+
+    79% {
+        transform: translate(0, 0) skew(0deg, 0deg);
+    }
+
+    80% {
+        transform: translate(-5px, 6px) skew(-1deg, 1deg);
+    }
+
+    81% {
+        transform: translate(0, 0) skew(0deg, 0deg);
+    }
+
+    100% {
+        transform: translate(0, 0) skew(0deg, 0deg);
+    }
+}
+
+/* 小範圍 RGB 偏移，模擬破損訊號 */
+@keyframes glitch-color {
+    0% {
+        filter: brightness(0.5) contrast(1.5) saturate(0.8) hue-rotate(-20deg);
+    }
+
+    25% {
+        filter: brightness(0.5) contrast(1.5) saturate(0.8) hue-rotate(-10deg) drop-shadow(-1px 0 red);
+    }
+
+    50% {
+        filter: brightness(0.5) contrast(1.5) saturate(0.8) hue-rotate(10deg) drop-shadow(1px 0 blue);
+    }
+
+    75% {
+        filter: brightness(0.5) contrast(1.5) saturate(0.8) hue-rotate(-5deg) drop-shadow(-1px 0 red);
+    }
+
+    100% {
+        filter: brightness(0.5) contrast(1.5) saturate(0.8) hue-rotate(0deg);
+    }
 }
 </style>
