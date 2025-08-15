@@ -128,7 +128,7 @@ const handleCommand = () => {
     }
 
     // 如果輸入有 "rm "，給他一點彩蛋提示
-    if (input.startsWith('rm ')) {
+    if (input.includes('rm ')) {
         typeLine(['⚠️ 警告：你正在使用 rm 命令！這可能會刪除重要資料。\n',
             '難道你看到終端機就會想輸入 rm -rf / 嗎？\n', "這甚至不在 help 指令裡"]);
         return
@@ -177,7 +177,7 @@ const handleCommand = () => {
         const query = input.slice(4).trim();
         if (query) {
             window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank");
-            typeLine(`Please google by yourself.`);
+            typeLine(`Please Google it yourself.`);
         } else {
             typeLine("Usage: ask <question>");
         }

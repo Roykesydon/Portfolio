@@ -6,7 +6,6 @@
                 <span class="sidebar-title glitch-bg" data-text="Roykesydon"></span>
                 <span class="sidebar-title glitch-text">Roykesydon</span>
             </span>
-            <!-- <h2 class="sidebar-title glitch" data-text="Roykesydon">Roykesydon</h2> -->
             <div class="neon-glow"></div>
         </div>
         <div class="social-icons">
@@ -338,5 +337,11 @@ const openLink = (url) => {
     100% {
         filter: brightness(0.5) contrast(1.5) saturate(0.8) hue-rotate(0deg);
     }
+}
+
+.social-btn:focus,
+.menu-item:focus {
+    outline: none;      /* 移除外圈 */
+    box-shadow: none;   /* 如果有陰影也移除 */
 }
 </style>

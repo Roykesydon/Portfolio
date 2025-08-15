@@ -63,7 +63,7 @@ export const introductionData = {
         },
         {
             role: "Linux Server Administrator",
-            company: "National Cheng Kung University - Ubiquitous Sensing and Cloud Computing Lab",
+            company: "Ubiquitous Sensing and Cloud Computing Lab",
             duration: "2023-2025"
         },
         {
